@@ -1,12 +1,12 @@
 ## About
-Terraform module to create TLS certificate from AWS ACM
+Terraform module to create TLS certificate in AWS ACM
 
 Features: 
 * Multiple domains support (SAN)
 * Auto validation using DNS
 
 Limitations:
-* all DNS zone should be in the same AWS account
+* All DNS zone should be in the same AWS account
 
 ## Usage
  
@@ -16,8 +16,15 @@ and corresponding coma-separated zone_id list (the order in lists should be the 
 ```
 module "certificate" {
   source    = "github.com/jetbrains-infra/terraform-aws-acm-certificate"
-  hostnames = "example.com,example.net" // required
-  zone_ids  = "${aws_route53_zone.example_com.id},${aws_route53_zone.example_net.id}" // required
+  hostnames = [
+    "example.com",
+    "example.net"
+  ]
+  zone_ids  = [
+    "${aws_route53_zone.example_com.id}",
+    "${aws_route53_zone.example_net.id}"
+  ]
+  region    = "us-east-1"
 }
 ```
 
