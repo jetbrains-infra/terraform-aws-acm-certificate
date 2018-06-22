@@ -1,15 +1,20 @@
-variable "hostnames" {}
-variable "zone_ids" {}
+variable "hostnames" {
+  description = "Certificate hostname list. The first is expected as the main domain, other ones are an alternative names."
+  type = "list"
+}
+
+variable "zone_ids" {
+  description = "Route 53 domain zone id list. Each id is corresponding to an item in the hostname list."
+  type = "list"
+}
+
 variable "region" {
+  description = "The region where certificate would be issued. Use `us-east-1` for Cloudfront distribution certificates."
   default = "eu-west-1"
 }
 
 locals {
-  main_domain       = "${element(split(",", var.hostnames), 0)}"
-  alternative_names = "${slice(split(",", var.hostnames), 1, length(split(",", var.hostnames)))}"
-  hostname_count    = "${length(split(",", var.hostnames))}"
-}
-
-provider "aws" {
-  region = "${var.region}"
+  main_domain       = "${element(var.hostnames, 0)}"
+  alternative_names = "${slice(var.hostnames, 1, length(var.hostnames))}"
+  hostname_count    = "${length(var.hostnames)}"
 }
