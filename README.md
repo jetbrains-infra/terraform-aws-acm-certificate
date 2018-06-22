@@ -10,8 +10,8 @@ Limitations:
 
 ## Usage
  
-it's a tricky to pass list of hostnames and its Route 53 zone_ids. The format is a string of comma-separated hostnames list 
-and corresponding coma-separated zone_id list (the order in lists should be the same):
+it's a tricky to pass list of hostnames and its Route 53 zone_ids. The format is a hostnames list 
+and corresponding zone_id list (the order in lists should be the same):
 
 ```
 module "certificate" {
