@@ -6,10 +6,10 @@ resource "aws_acm_certificate" "default" {
 
 resource "aws_route53_record" "proof" {
   count   = "${local.hostname_count}"
-  name    = "${element(aws_acm_certificate.default.domain_validation_options.*.resource_record_name, count.index)}"
-  type    = "${element(aws_acm_certificate.default.domain_validation_options.*.resource_record_type, count.index)}"
+  name    = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_name")}"
+  type    = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_type")}"
   zone_id = "${element(var.zone_ids, count.index)}"
-  records = ["${element(aws_acm_certificate.default.domain_validation_options.*.resource_record_value, count.index)}"]
+  records = ["${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_value")}"]
   ttl     = 60
 }
 
