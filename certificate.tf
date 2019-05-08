@@ -2,6 +2,12 @@ resource "aws_acm_certificate" "default" {
   domain_name = "${local.main_domain}"
   subject_alternative_names = ["${local.alternative_names}"]
   validation_method = "DNS"
+
+  tags {
+    Name    = "${local.purpose} for ${local.project}"
+    Project = "${local.project}"
+    Purpose = "${local.purpose}"
+  }
 }
 
 resource "aws_route53_record" "proof" {

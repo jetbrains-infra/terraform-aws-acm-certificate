@@ -1,3 +1,6 @@
+variable "project" {
+  description = "Project tag."
+}
 variable "hostnames" {
   description = "Certificate hostname list. The first is expected as the main domain, other ones are an alternative names."
   type = "list"
@@ -14,6 +17,9 @@ variable "region" {
 }
 
 locals {
+  project           = "${var.project}"
+  region            = "${local.region}"
+  purpose           = "${local.region == "us-east-1" ? "CloudFront" : "LoadBalancer" }"
   main_domain       = "${element(var.hostnames, 0)}"
   alternative_names = "${slice(var.hostnames, 1, length(var.hostnames))}"
   hostname_count    = "${length(var.hostnames)}"
