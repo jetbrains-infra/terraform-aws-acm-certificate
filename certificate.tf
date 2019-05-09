@@ -11,12 +11,13 @@ resource "aws_acm_certificate" "default" {
 }
 
 resource "aws_route53_record" "proof" {
-  count   = "${local.hostname_count}"
-  name    = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_name")}"
-  type    = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_type")}"
-  zone_id = "${element(var.zone_ids, count.index)}"
-  records = ["${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_value")}"]
-  ttl     = 60
+  count           = "${local.hostname_count}"
+  name            = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_name")}"
+  type            = "${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_type")}"
+  zone_id         = "${element(var.zone_ids, count.index)}"
+  records         = ["${lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_value")}"]
+  ttl             = 60
+  allow_overwrite = true
 }
 
 resource "aws_acm_certificate_validation" "default" {
