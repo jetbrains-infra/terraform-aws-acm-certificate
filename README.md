@@ -15,7 +15,8 @@ and corresponding zone_id list (the order in lists should be the same):
 
 ```
 module "certificate" {
-  source    = "github.com/jetbrains-infra/terraform-aws-acm-certificate"
+  source    = "github.com/jetbrains-infra/terraform-aws-acm-certificate?ref=v0.2.0"
+  project   = "FooBar"
   hostnames = [
     "example.com",
     "example.net"

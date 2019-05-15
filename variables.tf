@@ -1,6 +1,7 @@
 variable "project" {
   description = "Project tag."
 }
+
 variable "hostnames" {
   description = "Certificate hostname list. The first is expected as the main domain, other ones are an alternative names."
   type = "list"
