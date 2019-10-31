@@ -32,3 +32,7 @@ module "certificate" {
 ## Outputs
 
 * `arn` - certificate ARN
+
+## Requirements
+* Terraform >= `0.12`
+* AWS provider ~> `2.7.x`

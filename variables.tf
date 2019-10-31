@@ -18,10 +18,10 @@ variable "region" {
 }
 
 locals {
-  project           = "${var.project}"
-  region            = "${var.region}"
-  purpose           = "${local.region == "us-east-1" ? "CloudFront" : "LoadBalancer" }"
-  main_domain       = "${element(var.hostnames, 0)}"
-  alternative_names = "${slice(var.hostnames, 1, length(var.hostnames))}"
-  hostname_count    = "${length(var.hostnames)}"
+  project           = var.project
+  region            = var.region
+  purpose           = local.region == "us-east-1" ? "CloudFront" : "LoadBalancer"
+  main_domain       = element(var.hostnames, 0)
+  alternative_names = slice(var.hostnames, 1, length(var.hostnames))
+  hostname_count    = length(var.hostnames)
 }
