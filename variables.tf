@@ -4,12 +4,12 @@ variable "project" {
 
 variable "hostnames" {
   description = "Certificate hostname list. The first is expected as the main domain, other ones are an alternative names."
-  type        = "list"
+  type        = list(string)
 }
 
 variable "zone_ids" {
   description = "Route 53 domain zone id list. Each id is corresponding to an item in the hostname list."
-  type        = "list"
+  type        = list(string)
 }
 
 variable "region" {
