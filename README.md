@@ -1,38 +1,39 @@
 ## About
-Terraform module to create TLS certificate in AWS ACM
+Terraform module to create TLS certificate in the AWS ACM service.
 
 Features: 
 * Multiple domains support (SAN)
 * Auto validation using DNS
 
-Limitations:
-* All DNS zone should be in the same AWS account
+**NB!**: You should have permissions to create RRs in all specified DNS zones.
 
 ## Usage
- 
-it's a tricky to pass list of hostnames and its Route 53 zone_ids. The format is a hostnames list 
-and corresponding zone_id list (the order in lists should be the same):
 
-```
+```hcl
 module "certificate" {
-  source    = "github.com/jetbrains-infra/terraform-aws-acm-certificate?ref=v0.2.0"
-  project   = "FooBar"
-  hostnames = [
-    "example.com",
-    "example.net"
+  source  = "../"
+  name    = "test_certificate"
+  region  = "us-east-1"
+  aliases = [
+    { 
+      hostname = "example.com", 
+      zone_id  = data.aws_route53_zone.example_com.zone_id 
+    },
+    { 
+      hostname = "addon.example.com", 
+      zone_id  = data.aws_route53_zone.example_com.zone_id 
+    },
+    { 
+      hostname = "example.net", 
+      zone_id  = data.aws_route53_zone.example_net.zone_id 
+    }
   ]
-  zone_ids  = [
-    "${aws_route53_zone.example_com.id}",
-    "${aws_route53_zone.example_net.id}"
-  ]
-  region    = "us-east-1"
+  tags = {
+    Project = "Example"
+  } 
 }
 ```
 
 ## Outputs
 
 * `arn` - certificate ARN
-
-## Requirements
-* Terraform >= `0.12`
-* AWS provider ~> `2.7.x`
