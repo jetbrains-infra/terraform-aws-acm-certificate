@@ -9,11 +9,6 @@ variable "region" {
   description = "The region where certificate would be issued. Use `us-east-1` for Cloudfront distribution certificates."
   default     = "eu-west-1"
 }
-variable "tags" {
-  description = "Tags."
-  type        = map(string)
-  default     = {}
-}
 
 locals {
   aliases            = zipmap(var.aliases[*].hostname, var.aliases[*].zone_id)
@@ -21,9 +16,5 @@ locals {
   additional_aliases = [for x in var.aliases : x["hostname"] if x["hostname"] != local.main_domain]
   region             = var.region
   hostname_count     = length(var.aliases)
-
-  tags = merge({
-    Name   = var.name,
-    Module = "ACM certificate"
-  }, var.tags)
+  tags               = { Name = var.name, }
 }

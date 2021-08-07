@@ -28,9 +28,6 @@ module "certificate" {
       zone_id  = data.aws_route53_zone.example_net.zone_id 
     }
   ]
-  tags = {
-    Project = "Example"
-  } 
 }
 ```
 
