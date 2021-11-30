@@ -13,7 +13,6 @@ Features:
 module "certificate" {
   source  = "../"
   name    = "test_certificate"
-  region  = "us-east-1"
   aliases = [
     { 
       hostname = "example.com", 
@@ -28,6 +27,10 @@ module "certificate" {
       zone_id  = data.aws_route53_zone.example_net.zone_id 
     }
   ]
+  
+  providers = {
+    aws = aws.us // Use `aws` provider with `us-east-1` reagion to issue a certificate for a Cloudfront distribution 
+  }
 }
 ```
 
