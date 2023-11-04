@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Name tag."
+  description = "Name tag"
 }
 variable "aliases" {
   description = "List of hostnames with their domain zone ids. The first is expected as the main domain, other ones are an alternative names."
@@ -14,6 +14,6 @@ locals {
   tags = {
     Name          = var.name
     Module        = "ACM certificate"
-    ModuleVersion = "v0.4.0"
+    ModuleVersion = "v0.6.0"
   }
 }
